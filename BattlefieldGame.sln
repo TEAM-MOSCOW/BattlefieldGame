@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GolemiBombi", "GolemiBombi\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battlefield", "Battlefield\Battlefield.csproj", "{972BB999-A97E-432E-BEAD-8E915F4586C5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{125F307D-A769-4335-BC75-312489EDA557}"
+	ProjectSection(SolutionItems) = preProject
+		changes.txt = changes.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

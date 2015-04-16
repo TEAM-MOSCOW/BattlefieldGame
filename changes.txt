@@ -1,1 +1,4 @@
 *N: change project name to Battlefields
+*F: moved using statements inside namespaces; made classes public; 
+*F: fixed indentation (removed unnecessary blank lines, added new lines between methods); 
+*F: surrounded if and loop statements in curly brackets
