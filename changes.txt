@@ -3,3 +3,5 @@
 *F: fixed indentation (removed unnecessary blank lines, added new lines between methods); 
 *F: surrounded if and loop statements in curly brackets
 *F: initial renaming of variables/methods => pozicii -> positions, PrebroiOstavashtiteMinichki -> GetRemainingMinesCount
+*F: made positions field private, turned it into char[,]; cosmetic changes in DisplayField method; 
+*F: replaced Int32 with built-in alias int; removed useless comments; replaced substring extraction of coordinates with Split() and Parse();

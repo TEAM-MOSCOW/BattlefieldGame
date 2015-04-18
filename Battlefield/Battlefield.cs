@@ -6,7 +6,7 @@
     {
         public static int fieldSize = 0;
         public int detonatedMines = 0;
-        public string[,] positions = new string[fieldSize, fieldSize];
+        private char[,] positions = new char[fieldSize, fieldSize];
 
         public Battlefield()
         {
@@ -18,46 +18,46 @@
             {
                 for (int j = 0; j < fieldSize; j++)
                 {
-                    this.positions[i, j] = " - ";
+                    this.positions[i, j] = '-';
                 }
             }
         }
 
         public void DisplayField()
         {
-            //top side numbers
-            Console.Write("   ");
+            // top side numbers
+            Console.Write("{0}", new string(' ', 2));
             for (int i = 0; i < fieldSize; i++)
             {
-                Console.Write(" " + i.ToString() + "  ");
+                Console.Write(" {0}", i);
             }
-            Console.WriteLine("");
 
-            Console.Write("    ");
-            for (int i = 0; i < 4 * fieldSize - 3; i++)
+            Console.WriteLine();
+
+            Console.Write("{0}", new string(' ', 2));
+            for (int i = 0; i < 2 * fieldSize; i++)
             {
                 Console.Write("-");
             }
-            Console.WriteLine("");
-            //top side numbers
 
-            Console.WriteLine("");
+            Console.WriteLine();
 
+            // top side numbers
             for (int i = 0; i < fieldSize; i++)
             {
-                //left side numbers
-                Console.Write(i.ToString() + "|");
+                // left side numbers
+                Console.Write("{0}|", i);
                 for (int j = 0; j < fieldSize; j++)
                 {
-                    Console.Write(" " + this.positions[i, j].ToString());
+                    Console.Write(" {0}", this.positions[i, j]);
                 }
-                Console.WriteLine(""); Console.WriteLine(""); Console.WriteLine("");
+
+                Console.WriteLine();
             }
         }
 
         public void InitMines()
         {
-            //tuka ne sym siguren kakvo tochno pravq ama pyk raboti
             int minesDownLimit = Convert.ToInt32(0.15 * fieldSize * fieldSize);
             int minesUpperLimit = Convert.ToInt32(0.30 * fieldSize * fieldSize);
             int tempMineXCoordinate;
@@ -73,15 +73,12 @@
             {
                 do
                 {
-                    //tuka cikyla se vyrti dokato flag ne e false
-                    //s do-while raboti po dobre
                     tempMineXCoordinate = Convert.ToInt32(rnd.Next(0, fieldSize - 1));
                     tempMineYCoordinate = Convert.ToInt32(rnd.Next(0, fieldSize - 1));
 
-                    if (this.positions[tempMineXCoordinate, tempMineYCoordinate] == " - ")
+                    if (this.positions[tempMineXCoordinate, tempMineYCoordinate] == '-')
                     {
-                        this.positions[tempMineXCoordinate, tempMineYCoordinate] = " " +
-                                                                                 Convert.ToString(rnd.Next(1, 6) + " ");
+                        this.positions[tempMineXCoordinate, tempMineYCoordinate] = (char)(rnd.Next(1, 6) + '0');
                     }
                     else
                     {
@@ -90,33 +87,32 @@
                 } while (flag);
             }
         }
-
-        //tuka sa mogyshtite metodi za gyrmejite
+        
         public void DetonateMine1(int XCoord, int YCoord)
         {
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 1] = " X ";
+                this.positions[XCoord - 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 1] = " X ";
+                this.positions[XCoord - 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 1] = " X ";
+                this.positions[XCoord + 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 1] = " X ";
+                this.positions[XCoord + 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
         }
 
@@ -124,47 +120,47 @@
         {
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 1] = " X ";
+                this.positions[XCoord - 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 1] = " X ";
+                this.positions[XCoord, YCoord - 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 1] = " X ";
+                this.positions[XCoord + 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord] = " X ";
+                this.positions[XCoord - 1, YCoord] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord] = " X ";
+                this.positions[XCoord + 1, YCoord] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 1] = " X ";
+                this.positions[XCoord - 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 1] = " X ";
+                this.positions[XCoord, YCoord + 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 1] = " X ";
+                this.positions[XCoord + 1, YCoord + 1] = 'X';
             }
         }
 
@@ -172,82 +168,82 @@
         {
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord] = " X ";
+                this.positions[XCoord - 2, YCoord] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord] = " X ";
+                this.positions[XCoord - 1, YCoord] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord] = " X ";
+                this.positions[XCoord + 1, YCoord] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord] = " X ";
+                this.positions[XCoord + 2, YCoord] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 1] = " X ";
+                this.positions[XCoord - 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 1] = " X ";
+                this.positions[XCoord + 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 1] = " X ";
+                this.positions[XCoord - 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 1] = " X ";
+                this.positions[XCoord + 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 2] = " X ";
+                this.positions[XCoord, YCoord - 2] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 1] = " X ";
+                this.positions[XCoord, YCoord - 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 1] = " X ";
+                this.positions[XCoord, YCoord + 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 2] = " X ";
+                this.positions[XCoord, YCoord + 2] = 'X';
             }
         }
 
@@ -255,107 +251,107 @@
         {
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 1] = " X ";
+                this.positions[XCoord - 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 1] = " X ";
+                this.positions[XCoord, YCoord - 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 1] = " X ";
+                this.positions[XCoord + 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord] = " X ";
+                this.positions[XCoord - 1, YCoord] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord] = " X ";
+                this.positions[XCoord + 1, YCoord] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 1] = " X ";
+                this.positions[XCoord - 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 1] = " X ";
+                this.positions[XCoord, YCoord + 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 1] = " X ";
+                this.positions[XCoord + 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 2] = " X ";
+                this.positions[XCoord - 1, YCoord + 2] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 2] = " X ";
+                this.positions[XCoord, YCoord + 2] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 2] = " X ";
+                this.positions[XCoord + 1, YCoord + 2] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 2] = " X ";
+                this.positions[XCoord - 1, YCoord - 2] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 2] = " X ";
+                this.positions[XCoord, YCoord - 2] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 2] = " X ";
+                this.positions[XCoord + 1, YCoord - 2] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord - 1] = " X ";
+                this.positions[XCoord - 2, YCoord - 1] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord] = " X ";
+                this.positions[XCoord - 2, YCoord] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord + 1] = " X ";
+                this.positions[XCoord - 2, YCoord + 1] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord - 1] = " X ";
+                this.positions[XCoord + 2, YCoord - 1] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord] = " X ";
+                this.positions[XCoord + 2, YCoord] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord + 1] = " X ";
+                this.positions[XCoord + 2, YCoord + 1] = 'X';
             }
         }
 
@@ -363,134 +359,133 @@
         {
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 1] = " X ";
+                this.positions[XCoord - 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 1] = " X ";
+                this.positions[XCoord, YCoord - 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 1] = " X ";
+                this.positions[XCoord + 1, YCoord - 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord] = " X ";
+                this.positions[XCoord - 1, YCoord] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord, YCoord] = " X ";
+                this.positions[XCoord, YCoord] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord] = " X ";
+                this.positions[XCoord + 1, YCoord] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 1] = " X ";
+                this.positions[XCoord - 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 1] = " X ";
+                this.positions[XCoord, YCoord + 1] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 1] = " X ";
+                this.positions[XCoord + 1, YCoord + 1] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord + 2] = " X ";
+                this.positions[XCoord - 1, YCoord + 2] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord, YCoord + 2] = " X ";
+                this.positions[XCoord, YCoord + 2] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord + 2] = " X ";
+                this.positions[XCoord + 1, YCoord + 2] = 'X';
             }
 
             if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord - 1, YCoord - 2] = " X ";
+                this.positions[XCoord - 1, YCoord - 2] = 'X';
             }
 
             if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord, YCoord - 2] = " X ";
+                this.positions[XCoord, YCoord - 2] = 'X';
             }
 
             if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord + 1, YCoord - 2] = " X ";
+                this.positions[XCoord + 1, YCoord - 2] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord - 1] = " X ";
+                this.positions[XCoord - 2, YCoord - 1] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord] = " X ";
+                this.positions[XCoord - 2, YCoord] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord + 1] = " X ";
+                this.positions[XCoord - 2, YCoord + 1] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord - 1] = " X ";
+                this.positions[XCoord + 2, YCoord - 1] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord] = " X ";
+                this.positions[XCoord + 2, YCoord] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord + 1] = " X ";
+                this.positions[XCoord + 2, YCoord + 1] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord - 2] = " X ";
+                this.positions[XCoord - 2, YCoord - 2] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord - 2] = " X ";
+                this.positions[XCoord + 2, YCoord - 2] = 'X';
             }
 
             if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord - 2, YCoord + 2] = " X ";
+                this.positions[XCoord - 2, YCoord + 2] = 'X';
             }
 
             if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
             {
-                this.positions[XCoord + 2, YCoord + 2] = " X ";
+                this.positions[XCoord + 2, YCoord + 2] = 'X';
             }
         }
-
-        //tuka se izbira kva bomba da grymne
+        
         public void DetonateMine(int XCoord, int YCoord)
         {
-            switch (Convert.ToInt32(this.positions[XCoord, YCoord]))
+            switch (this.positions[XCoord, YCoord] - '0')
             {
                 case 1: 
                     this.DetonateMine1(XCoord, YCoord);
@@ -518,7 +513,7 @@
             {
                 for (int j = 0; i < fieldSize; i++)
                 {
-                    if ((this.positions[i, j] != " X ") && (this.positions[i, j] != " - "))
+                    if ((this.positions[i, j] != 'X') && (this.positions[i, j] != '-'))
                     {
                         count++;
                     }
@@ -530,7 +525,6 @@
 
         public static void Main(string[] args)
         {
-
             string tempFieldSize;
             Console.WriteLine("Welcome to the Battle Field game");
 
@@ -538,14 +532,14 @@
             {
                 Console.Write("Enter legal size of board: ");
                 tempFieldSize = Console.ReadLine();
-            } while ((!Int32.TryParse(tempFieldSize, out fieldSize)) || (fieldSize < 0) || (fieldSize > 11));
+            } while ((!int.TryParse(tempFieldSize, out fieldSize)) || (fieldSize < 0) || (fieldSize > 11));
 
             Battlefield bf = new Battlefield();
             bf.InitField();
             bf.InitMines();
             bf.DisplayField();
 
-            string coordinates;
+            string[] coordinates;
             int XCoord, YCoord;
 
             do
@@ -553,15 +547,15 @@
                 do
                 {
                     Console.Write("Enter coordinates: ");
-                    coordinates = Console.ReadLine();
-                    XCoord = Convert.ToInt32(coordinates.Substring(0, 1));
-                    YCoord = Convert.ToInt32(coordinates.Substring(2));
+                    coordinates = Console.ReadLine().Split();
+                    XCoord = int.Parse(coordinates[0]);
+                    YCoord = int.Parse(coordinates[1]);
 
-                    if ((XCoord < 0) || (YCoord > fieldSize - 1) || (bf.positions[XCoord, YCoord] == " - "))
+                    if ((XCoord < 0) || (YCoord > fieldSize - 1) || (bf.positions[XCoord, YCoord] == '-'))
                     {
                         Console.WriteLine("Invalid Move");
                     }
-                } while ((XCoord < 0) || (YCoord > fieldSize - 1) || (bf.positions[XCoord, YCoord] == " - "));
+                } while ((XCoord < 0) || (YCoord > fieldSize - 1) || (bf.positions[XCoord, YCoord] == '-'));
 
                 bf.DetonateMine(XCoord, YCoord);
                 bf.DisplayField();
