@@ -87,421 +87,183 @@
                 } while (flag);
             }
         }
-        
-        public void DetonateMine1(int XCoord, int YCoord)
+
+        public void DetonateCell(Cell cellToDetonate)
         {
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
+            if (IsCellInRange(cellToDetonate))
             {
-                this.positions[XCoord - 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
+                positions[cellToDetonate.YCoordinate, cellToDetonate.XCoordinate] = 'X';
             }
         }
 
-        public void DetonateMine2(int XCoord, int YCoord)
+        public static bool IsCellInRange(Cell cell)
         {
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord - 1] = 'X';
-            }
+            bool isXCoordinateInRange = 0 <= cell.XCoordinate && cell.XCoordinate < fieldSize;
+            bool isYCoordinateInRange = 0 <= cell.YCoordinate && cell.YCoordinate < fieldSize;
 
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 1] = 'X';
-            }
+            return isXCoordinateInRange && isYCoordinateInRange;
         }
 
-        public void DetonateMine3(int XCoord, int YCoord)
+        public struct Cell
         {
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
+            public Cell(int xCoordinate, int yCoordinate)
+                : this()
             {
-                this.positions[XCoord - 2, YCoord] = 'X';
+                this.XCoordinate = xCoordinate;
+                this.YCoordinate = yCoordinate;
             }
 
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord] = 'X';
-            }
+            public int XCoordinate { get; private set; }
 
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 2] = 'X';
-            }
+            public int YCoordinate { get; private set; }
         }
 
-        public void DetonateMine4(int XCoord, int YCoord)
+        public Cell[] GetDetonatedCells1(int xCoordinate, int yCoordinate)
         {
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
+            Cell[] cellsToDetonate =
             {
-                this.positions[XCoord - 1, YCoord - 1] = 'X';
-            }
+                new Cell(xCoordinate - 1, yCoordinate - 1),
+                new Cell(xCoordinate + 1, yCoordinate - 1),
+                new Cell(xCoordinate, yCoordinate),
+                new Cell(xCoordinate - 1, yCoordinate + 1),
+                new Cell(xCoordinate + 1, yCoordinate + 1)
+            };
 
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord + 1] = 'X';
-            }
+            return cellsToDetonate;
         }
 
-        public void GrymniPetaBomba(int XCoord, int YCoord)
+        public Cell[] GetDetonatedCells2(int xCoordinate, int yCoordinate)
         {
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
+            Cell[] cellsToDetonate =
             {
-                this.positions[XCoord - 1, YCoord - 1] = 'X';
-            }
+                new Cell(xCoordinate - 1, yCoordinate - 1),
+                new Cell(xCoordinate, yCoordinate - 1), 
+                new Cell(xCoordinate + 1, yCoordinate - 1),
+                new Cell(xCoordinate - 1, yCoordinate), 
+                new Cell(xCoordinate, yCoordinate),
+                new Cell(xCoordinate + 1, yCoordinate), 
+                new Cell(xCoordinate - 1, yCoordinate + 1),
+                new Cell(xCoordinate, yCoordinate + 1), 
+                new Cell(xCoordinate + 1, yCoordinate + 1)
+            };
 
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord, YCoord] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord - 1 >= 0) && (XCoord - 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord - 1, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord >= 0) && (XCoord < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord + 1 >= 0) && (XCoord + 1 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord + 1, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord - 1 >= 0) && (YCoord - 1 < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord - 1] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord >= 0) && (YCoord < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord + 1 >= 0) && (YCoord + 1 < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord + 1] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord - 2 >= 0) && (YCoord - 2 < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord - 2] = 'X';
-            }
-
-            if ((XCoord - 2 >= 0) && (XCoord - 2 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord - 2, YCoord + 2] = 'X';
-            }
-
-            if ((XCoord + 2 >= 0) && (XCoord + 2 < fieldSize) && (YCoord + 2 >= 0) && (YCoord + 2 < fieldSize))
-            {
-                this.positions[XCoord + 2, YCoord + 2] = 'X';
-            }
+            return cellsToDetonate;
         }
-        
-        public void DetonateMine(int XCoord, int YCoord)
+
+        public Cell[] GetDetonatedCells3(int xCoordinate, int yCoordinate)
         {
-            switch (this.positions[XCoord, YCoord] - '0')
+            Cell[] cellsToDetonate =
             {
-                case 1: 
-                    this.DetonateMine1(XCoord, YCoord);
+                new Cell(xCoordinate, yCoordinate - 2), 
+                new Cell(xCoordinate - 1, yCoordinate - 1),
+                new Cell(xCoordinate, yCoordinate - 1), 
+                new Cell(xCoordinate + 1, yCoordinate - 1),
+                new Cell(xCoordinate - 2, yCoordinate),
+                new Cell(xCoordinate - 1, yCoordinate), 
+                new Cell(xCoordinate, yCoordinate),
+                new Cell(xCoordinate + 1, yCoordinate), 
+                new Cell(xCoordinate + 2, yCoordinate), 
+                new Cell(xCoordinate - 1, yCoordinate + 1),
+                new Cell(xCoordinate, yCoordinate + 1), 
+                new Cell(xCoordinate + 1, yCoordinate + 1),
+                new Cell(xCoordinate, yCoordinate + 2)
+            };
+
+            return cellsToDetonate;
+        }
+
+        public Cell[] GetDetonatedCells4(int xCoordinate, int yCoordinate)
+        {
+            Cell[] cellsToDetonate =
+            {
+                new Cell(xCoordinate - 1, yCoordinate - 2),
+                new Cell(xCoordinate, yCoordinate - 2),
+                new Cell(xCoordinate + 1, yCoordinate - 2), 
+                new Cell(xCoordinate - 2, yCoordinate - 1),
+                new Cell(xCoordinate - 1, yCoordinate - 1), 
+                new Cell(xCoordinate, yCoordinate - 1), 
+                new Cell(xCoordinate + 1, yCoordinate - 1), 
+                new Cell(xCoordinate + 2, yCoordinate - 1), 
+                new Cell(xCoordinate - 2, yCoordinate),
+                new Cell(xCoordinate - 1, yCoordinate), 
+                new Cell(xCoordinate, yCoordinate), 
+                new Cell(xCoordinate + 1, yCoordinate), 
+                new Cell(xCoordinate + 2, yCoordinate), 
+                new Cell(xCoordinate - 2, yCoordinate + 1),
+                new Cell(xCoordinate - 1, yCoordinate + 1), 
+                new Cell(xCoordinate, yCoordinate + 1), 
+                new Cell(xCoordinate + 1, yCoordinate + 1), 
+                new Cell(xCoordinate + 2, yCoordinate + 1), 
+                new Cell(xCoordinate - 1, yCoordinate + 2),
+                new Cell(xCoordinate, yCoordinate + 2),
+                new Cell(xCoordinate + 1, yCoordinate + 2)
+            };
+
+            return cellsToDetonate;
+        }
+
+        public Cell[] GetDetonatedCells5(int xCoordinate, int yCoordinate)
+        {
+            Cell[] cellsToDetonate =
+            {
+                new Cell(xCoordinate - 2, yCoordinate - 2),
+                new Cell(xCoordinate - 1, yCoordinate - 2),
+                new Cell(xCoordinate, yCoordinate - 2),
+                new Cell(xCoordinate + 1, yCoordinate - 2), 
+                new Cell(xCoordinate + 2, yCoordinate - 2),
+                new Cell(xCoordinate - 2, yCoordinate - 1),
+                new Cell(xCoordinate - 1, yCoordinate - 1), 
+                new Cell(xCoordinate, yCoordinate - 1), 
+                new Cell(xCoordinate + 1, yCoordinate - 1), 
+                new Cell(xCoordinate + 2, yCoordinate - 1), 
+                new Cell(xCoordinate - 2, yCoordinate),
+                new Cell(xCoordinate - 1, yCoordinate), 
+                new Cell(xCoordinate, yCoordinate), 
+                new Cell(xCoordinate + 1, yCoordinate), 
+                new Cell(xCoordinate + 2, yCoordinate), 
+                new Cell(xCoordinate - 2, yCoordinate + 1),
+                new Cell(xCoordinate - 1, yCoordinate + 1), 
+                new Cell(xCoordinate, yCoordinate + 1), 
+                new Cell(xCoordinate + 1, yCoordinate + 1), 
+                new Cell(xCoordinate + 2, yCoordinate + 1), 
+                new Cell(xCoordinate - 2, yCoordinate + 2),
+                new Cell(xCoordinate - 1, yCoordinate + 2),
+                new Cell(xCoordinate, yCoordinate + 2),
+                new Cell(xCoordinate + 1, yCoordinate + 2),
+                new Cell(xCoordinate + 2, yCoordinate + 2),
+            };
+
+            return cellsToDetonate;
+        }
+
+        public void DetonateMine(int xCoordinate, int yCoordinate)
+        {
+            Cell[] cellsToDetonate;
+
+            switch (this.positions[yCoordinate, xCoordinate] - '0')
+            {
+                case 1:
+                    cellsToDetonate = GetDetonatedCells1(xCoordinate, yCoordinate);
                     break;
-                case 2: 
-                    this.DetonateMine2(XCoord, YCoord);
+                case 2:
+                    cellsToDetonate = GetDetonatedCells2(xCoordinate, yCoordinate);
                     break;
-                case 3: 
-                    this.DetonateMine3(XCoord, YCoord);
+                case 3:
+                    cellsToDetonate = GetDetonatedCells3(xCoordinate, yCoordinate);
                     break;
-                case 4: 
-                    this.DetonateMine4(XCoord, YCoord);
+                case 4:
+                    cellsToDetonate = GetDetonatedCells4(xCoordinate, yCoordinate);
                     break;
-                case 5: 
-                    this.GrymniPetaBomba(XCoord, YCoord);
+                case 5:
+                    cellsToDetonate = GetDetonatedCells5(xCoordinate, yCoordinate);
                     break;
+                default:
+                    throw new Exception();
+            }
+
+            foreach (var cell in cellsToDetonate)
+            {
+                DetonateCell(cell);
             }
         }
 
@@ -539,25 +301,25 @@
             bf.InitMines();
             bf.DisplayField();
 
-            string[] coordinates;
-            int XCoord, YCoord;
-
             do
             {
-                do
+                Console.Write("Enter coordinates: ");
+                var coordinates = Console.ReadLine().Split();
+                var xCoordinate = int.Parse(coordinates[1]);
+                var yCoordinate = int.Parse(coordinates[0]);
+
+                Cell cellToExplode = new Cell(xCoordinate, yCoordinate);
+
+                while (!IsCellInRange(cellToExplode) || (bf.positions[yCoordinate, xCoordinate] == '-') || bf.positions[yCoordinate, xCoordinate] == 'X')
                 {
+                    Console.WriteLine("Invalid Move");
                     Console.Write("Enter coordinates: ");
                     coordinates = Console.ReadLine().Split();
-                    XCoord = int.Parse(coordinates[0]);
-                    YCoord = int.Parse(coordinates[1]);
+                    xCoordinate = int.Parse(coordinates[0]);
+                    yCoordinate = int.Parse(coordinates[1]);
+                }
 
-                    if ((XCoord < 0) || (YCoord > fieldSize - 1) || (bf.positions[XCoord, YCoord] == '-'))
-                    {
-                        Console.WriteLine("Invalid Move");
-                    }
-                } while ((XCoord < 0) || (YCoord > fieldSize - 1) || (bf.positions[XCoord, YCoord] == '-'));
-
-                bf.DetonateMine(XCoord, YCoord);
+                bf.DetonateMine(xCoordinate, yCoordinate);
                 bf.DisplayField();
                 bf.detonatedMines++;
             } while (bf.GetRemainingMinesCount() != 0);

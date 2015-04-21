@@ -5,3 +5,5 @@
 *F: initial renaming of variables/methods => pozicii -> positions, PrebroiOstavashtiteMinichki -> GetRemainingMinesCount
 *F: made positions field private, turned it into char[,]; cosmetic changes in DisplayField method; 
 *F: replaced Int32 with built-in alias int; removed useless comments; replaced substring extraction of coordinates with Split() and Parse();
+*F: renamed local variables to start with lower-case letters; added a struct cell; added method to detonate a cell which checks if its coordinates are valid
+*F: detonation methods changed to return an array of cells to detonate, then iterate them and detonate all cells in range
