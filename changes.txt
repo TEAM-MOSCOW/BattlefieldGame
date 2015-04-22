@@ -7,3 +7,4 @@
 *F: replaced Int32 with built-in alias int; removed useless comments; replaced substring extraction of coordinates with Split() and Parse();
 *F: renamed local variables to start with lower-case letters; added a struct cell; added method to detonate a cell which checks if its coordinates are valid
 *F: detonation methods changed to return an array of cells to detonate, then iterate them and detonate all cells in range
+*F: Separated logic in several files - BattlefieldApp (main class), Battlefield (containing core logic), Cell struct and PatternFactory(generating arrays of cells to be detonated)
