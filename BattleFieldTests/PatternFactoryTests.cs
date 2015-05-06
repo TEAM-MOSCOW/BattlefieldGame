@@ -11,16 +11,36 @@ namespace BattleFieldTests
         [TestMethod]
         public void TestGenerateFirstDetonationPattern()
         {
-            var cell = new Cell(5, 5);
-            List<Cell> expectedResult = new List<Cell>
+           var cell = new Cell(2, 4);
+           List<Cell> cellsToDetonate = new List<Cell>
             {
-                new Cell(4, 6),
-                new Cell(4, 4),
-                new Cell(5, 5),
-                new Cell(6, 6),
-                new Cell(6, 4)
+                new Cell(1, 3),
+                new Cell(3, 3),
+                new Cell(2, 4),
+                new Cell(1, 5),
+                new Cell(3, 5)
             };
-            Assert.AreEqual(PatternFactory.GenerateFirstDetonationPattern(cell), expectedResult);
+            
+            CollectionAssert.AreEqual(PatternFactory.GenerateFirstDetonationPattern(cell).ToArray(), cellsToDetonate.ToArray());
+        }
+
+        public void TestGenerateSecondDetonationPattern()
+        {
+            var cell = new Cell(2, 4);
+            List<Cell> cellsToDetonate = new List<Cell>
+            {
+                new Cell(1, 3),
+                new Cell(3, 3),
+                new Cell(2, 4),
+                new Cell(1, 5),
+                new Cell(3, 5),
+                new Cell(2, 3),
+                new Cell(2, 5),
+                new Cell(1, 4),
+                new Cell(3, 4)
+            };
+
+            CollectionAssert.AreEqual(PatternFactory.GenerateSecondDetonationPattern(cell).ToArray(), cellsToDetonate.ToArray());
         }
     }
 }
