@@ -12,11 +12,13 @@
         /// </summary>
         public static void Main()
         {
+            Console.WriteLine("Welcome to the Battle Field game");
+
             int size = GetBattleFieldSize();
             Battlefield battlefield = Battlefield.Create(size);
             battlefield.DisplayField();
 
-            do
+            while (battlefield.GetRemainingMinesCount() != 0)
             {
                 Cell cellToExplode = GetCellToExplode();
 
@@ -28,7 +30,7 @@
 
                 battlefield.DetonateMine(cellToExplode);
                 battlefield.DisplayField();
-            } while (battlefield.GetRemainingMinesCount() != 0);
+            }
 
             Console.WriteLine("Game Over. Detonated Mines: " + battlefield.DetonatedMines);
             Console.ReadKey();
@@ -41,16 +43,17 @@
         public static int GetBattleFieldSize()
         {
             int size;
-            string tempFieldSize;
-            Console.WriteLine("Welcome to the Battle Field game");
 
-            do
+            Console.Write("Enter legal size of board: ");
+            var tempFieldSize = Console.ReadLine();
+
+            while ((!int.TryParse(tempFieldSize, out size))
+                    || (size < Battlefield.MinFieldSize)
+                    || (size > Battlefield.MaxFieldSize))
             {
                 Console.Write("Enter legal size of board: ");
                 tempFieldSize = Console.ReadLine();
-            } while ((!int.TryParse(tempFieldSize, out size)) ||
-                (size < Battlefield.MinFieldSize) ||
-                (size > Battlefield.MaxFieldSize));
+            }
 
             return size;
         }
@@ -67,7 +70,9 @@
             Console.Write("Enter coordinates: ");
             var coordinates = Console.ReadLine().Split();
 
-            while (coordinates.Length != 2 || !int.TryParse(coordinates[1], out xCoordinate) || !int.TryParse(coordinates[0], out yCoordinate))
+            while (coordinates.Length != 2 
+                || !int.TryParse(coordinates[1], out xCoordinate) 
+                || !int.TryParse(coordinates[0], out yCoordinate))
             {
                 Console.WriteLine("---Invalid coordinates---");
                 Console.Write("Enter coordinates: ");

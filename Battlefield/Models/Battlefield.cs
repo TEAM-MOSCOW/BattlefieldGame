@@ -28,6 +28,9 @@
         /// </summary>
         private const double MaxBombsPercentage = 0.30;
         
+        /// <summary>
+        /// A Random responsible for creating mines on random cells on the battlefield.
+        /// </summary>
         private static readonly Random Rand = new Random();
 
         /// <summary>
