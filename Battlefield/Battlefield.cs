@@ -7,7 +7,9 @@
     {
         public const int MinFieldSize = 1;
         public const int MaxFieldSize = 10;
-
+        private const double MinBombsPercentage = 0.15;
+        private const double MaxBombsPercentage = 0.30;
+        
         private static Battlefield instance;
         private char[,] field;
         private int fieldSize;
@@ -155,8 +157,8 @@
 
         private void InitMines()
         {
-            int minesLowerLimit = (int)Math.Floor(0.15 * this.FieldSize * this.FieldSize);
-            int minesUpperLimit = (int)Math.Floor(0.30 * this.FieldSize * this.FieldSize);
+            int minesLowerLimit = (int)Math.Floor(MinBombsPercentage * this.FieldSize * this.FieldSize);
+            int minesUpperLimit = (int)Math.Floor(MaxBombsPercentage * this.FieldSize * this.FieldSize);
 
             Random rnd = new Random();
 

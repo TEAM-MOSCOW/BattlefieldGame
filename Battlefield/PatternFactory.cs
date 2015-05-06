@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
-namespace Battlefield
+﻿namespace Battlefield
 {
+    using System.Collections.Generic;
+
     public static class PatternFactory
     {
 

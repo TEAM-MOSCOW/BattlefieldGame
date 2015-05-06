@@ -19,3 +19,4 @@
 *N: changed method Create in Battlefield to user ?? operator insted of if statement
 *N: moved this.DetonatedMines++ from method GetRemainingMinesCount to DetonateMine
 *N: create method GetBattleFieldSize in BattlefieldApp that returns the size of the board
+*N: made const variables for MinBombsPercentage and MaxBombsPercentage
