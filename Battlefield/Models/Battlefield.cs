@@ -2,6 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
+    using Interfaces;
+    using Models;
 
     /// <summary>
     /// A class representing a battlefield where actions take place.
@@ -31,7 +33,7 @@
         /// <summary>
         /// A Random responsible for creating mines on random cells on the battlefield.
         /// </summary>
-        private static readonly Random Rand = new Random();
+        private static readonly IRandomNumberGenerator Rand = new RandomNumberGenerator();
 
         /// <summary>
         /// An instance of a battlefield
@@ -204,7 +206,7 @@
             int minesLowerLimit = (int)Math.Floor(MinBombsPercentage * this.FieldSize * this.FieldSize);
             int minesUpperLimit = (int)Math.Floor(MaxBombsPercentage * this.FieldSize * this.FieldSize);
 
-            int minesCount = Rand.Next(minesLowerLimit, minesUpperLimit + 1);
+            int minesCount = Rand.GetRandomNumber(minesLowerLimit, minesUpperLimit + 1);
 
             return minesCount;
         }
@@ -271,12 +273,12 @@
 
                 while (!isMinePlaced)
                 {
-                    var tempXCoordinate = Rand.Next(0, this.FieldSize - 1);
-                    var tempYCoordinate = Rand.Next(0, this.FieldSize - 1);
+                    var tempXCoordinate = Rand.GetRandomNumber(0, this.FieldSize - 1);
+                    var tempYCoordinate = Rand.GetRandomNumber(0, this.FieldSize - 1);
 
                     if (this.field[tempXCoordinate, tempYCoordinate] == '-')
                     {
-                        this.field[tempXCoordinate, tempYCoordinate] = (char)(Rand.Next(1, 6) + '0');
+                        this.field[tempXCoordinate, tempYCoordinate] = (char)(Rand.GetRandomNumber(1, 6) + '0');
                     }
                     else
                     {
