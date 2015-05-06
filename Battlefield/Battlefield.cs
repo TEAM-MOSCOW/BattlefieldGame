@@ -43,11 +43,15 @@
             }
         }
 
+        
         public static Battlefield Create(int size)
         {
             return instance ?? (instance = new Battlefield(size));
         }
 
+        /// <summary>
+        /// Displays the battle field on the console
+        /// </summary>
         public void DisplayField()
         {
             // top side numbers
@@ -81,11 +85,21 @@
             }
         }
 
+        /// <summary>
+        ///  Checks if the Cell is a mine
+        /// </summary>
+        /// <param name="cell">An object containing coordinates</param>
+        /// <returns>True or False</returns>
         public bool IsCellMine(Cell cell)
         {
             return '1' <= this.field[cell.Y, cell.X] && this.field[cell.Y, cell.X] <= '5';
         }
 
+        /// <summary>
+        /// Checks if the battlefield contains a cell with certain coordinates.
+        /// </summary>
+        /// <param name="cell">An object containing coordinates</param>
+        /// <returns>True or False</returns>
         public bool IsCellInRange(Cell cell)
         {
             bool isXCoordinateInRange = 0 <= cell.X && cell.X < this.FieldSize;
@@ -94,32 +108,51 @@
             return isXCoordinateInRange && isYCoordinateInRange;
         }
 
-        public void DetonateMine(Cell cellToDetonate)
+        /// <summary>
+        /// Method that from a detonated cell returns the cells to explode after detonation
+        /// </summary>
+        /// <param name="cellToDetonate"></param>
+        /// <returns>List of cells to explode</returns>
+        private List<Cell> CellsToExplode(Cell cellToDetonate)
         {
-            List<Cell> cellsToDetonate;
+            List<Cell> cellsToExplode;
 
             switch (this.field[cellToDetonate.Y, cellToDetonate.X] - '0')
             {
                 case 1:
-                    cellsToDetonate = PatternFactory.GenerateFirstDetonationPattern(cellToDetonate);
+                    cellsToExplode = PatternFactory.GenerateFirstDetonationPattern(cellToDetonate);
                     break;
                 case 2:
-                    cellsToDetonate = PatternFactory.GenerateSecondDetonationPattern(cellToDetonate);
+                    cellsToExplode = PatternFactory.GenerateSecondDetonationPattern(cellToDetonate);
                     break;
                 case 3:
-                    cellsToDetonate = PatternFactory.GenerateThirdDetonationPattern(cellToDetonate);
+                    cellsToExplode = PatternFactory.GenerateThirdDetonationPattern(cellToDetonate);
                     break;
                 case 4:
-                    cellsToDetonate = PatternFactory.GenerateFourthDetonationPattern(cellToDetonate);
+                    cellsToExplode = PatternFactory.GenerateFourthDetonationPattern(cellToDetonate);
                     break;
                 case 5:
-                    cellsToDetonate = PatternFactory.GenerateFifthDetonationPattern(cellToDetonate);
+                    cellsToExplode = PatternFactory.GenerateFifthDetonationPattern(cellToDetonate);
                     break;
                 default:
                     throw new ArgumentException("Cell value is invalid.");
             }
+            return cellsToExplode;
+        }
 
-            foreach (var cell in cellsToDetonate)
+        /// <summary>
+        /// Method that explodes cells from a given detonated cell
+        /// </summary>
+        /// <param name="detonatedCell">The cell that have benn detonated</param>
+        public void DetonateMine(Cell detonatedCell)
+        {
+            /*
+             * We pass the detonated cell to the method cellsToExplode and get the
+             * cells that have to explode
+             */
+            List<Cell> cellsToExplode = CellsToExplode(detonatedCell);
+
+            foreach (var cell in cellsToExplode)
             {
                 this.DetonateCell(cell);
             }
@@ -127,6 +160,10 @@
             this.DetonatedMines++;
         }
 
+        /// <summary>
+        /// Gets the number of remaining mines in the battlefield
+        /// </summary>
+        /// <returns>Count of mines left</returns>
         public int GetRemainingMinesCount()
         {
             int count = 0;
@@ -142,6 +179,9 @@
             return count;
         }
 
+        /// <summary>
+        /// Initializes the battlefield
+        /// </summary>
         private void InitField()
         {
             this.field = new char[this.FieldSize, this.FieldSize];
@@ -154,7 +194,10 @@
                 }
             }
         }
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
         private void InitMines()
         {
             int minesLowerLimit = (int)Math.Floor(MinBombsPercentage * this.FieldSize * this.FieldSize);
@@ -185,6 +228,10 @@
             }
         }
 
+        /// <summary>
+        /// Detonates a certain cell
+        /// </summary>
+        /// <param name="cellToDetonate">An object containing the coordinates of the detonated mine</param>
         private void DetonateCell(Cell cellToDetonate)
         {
             if (this.IsCellInRange(cellToDetonate))

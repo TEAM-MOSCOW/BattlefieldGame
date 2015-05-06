@@ -20,3 +20,5 @@
 *N: moved this.DetonatedMines++ from method GetRemainingMinesCount to DetonateMine
 *N: create method GetBattleFieldSize in BattlefieldApp that returns the size of the board
 *N: made const variables for MinBombsPercentage and MaxBombsPercentage
+*S: XML Documentation to Pattern Factory
+*S: XML Documentation to Battlefield and splited DetonateMine-> Detonate Mine, CellsToExplode
