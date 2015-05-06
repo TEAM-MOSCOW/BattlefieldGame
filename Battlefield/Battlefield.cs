@@ -194,11 +194,12 @@
                 }
             }
         }
-        
+
         /// <summary>
-        /// 
+        /// Gets the number of mines that will be placed on the battlefield
         /// </summary>
-        private void InitMines()
+        /// <returns>the number of mines</returns>
+        public int MinesCount()
         {
             int minesLowerLimit = (int)Math.Floor(MinBombsPercentage * this.FieldSize * this.FieldSize);
             int minesUpperLimit = (int)Math.Floor(MaxBombsPercentage * this.FieldSize * this.FieldSize);
@@ -206,6 +207,18 @@
             Random rnd = new Random();
 
             int minesCount = rnd.Next(minesLowerLimit, minesUpperLimit + 1);
+
+            return minesCount;
+        }
+
+        /// <summary>
+        /// Initializes the mines
+        /// </summary>
+        private void InitMines()
+        {
+            
+            int minesCount = MinesCount();
+            Random rnd = new Random();
 
             for (int i = 0; i < minesCount; i++)
             {
