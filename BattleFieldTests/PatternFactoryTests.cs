@@ -1,18 +1,17 @@
-﻿    using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Battlefield;
-using System.Collections.Generic;
-
-namespace BattleFieldTests
+﻿namespace BattleFieldTests
 {
+    using System.Collections.Generic;
+    using Battlefield;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     [TestClass]
     public class PatternFactoryTests
     {
         [TestMethod]
         public void TestGenerateFirstDetonationPattern()
         {
-           var cell = new Cell(2, 4);
-           List<Cell> cellsToDetonate = new List<Cell>
+            var cell = new Cell(2, 4);
+            List<Cell> cellsToDetonate = new List<Cell>
             {
                 new Cell(1, 3),
                 new Cell(3, 3),
@@ -20,7 +19,7 @@ namespace BattleFieldTests
                 new Cell(1, 5),
                 new Cell(3, 5)
             };
-            
+
             CollectionAssert.AreEqual(PatternFactory.GenerateFirstDetonationPattern(cell), cellsToDetonate);
         }
 
