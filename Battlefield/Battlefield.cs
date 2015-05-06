@@ -1,8 +1,9 @@
 ﻿namespace Battlefield
 {
     using System;
+    using System.Collections.Generic;
 
-    public class Battlefield
+    public sealed class Battlefield
     {
         public const int MinFieldSize = 1;
         public const int MaxFieldSize = 10;
@@ -42,12 +43,7 @@
 
         public static Battlefield Create(int size)
         {
-            if (instance == null)
-            {
-                instance = new Battlefield(size);
-            }
-
-            return instance;
+            return instance ?? (instance = new Battlefield(size));
         }
 
         public void DisplayField()
@@ -83,9 +79,9 @@
             }
         }
 
-        public bool IsCellMine(int row, int column)
+        public bool IsCellMine(Cell cell)
         {
-            return '1' <= this.field[row, column] && this.field[row, column] <= '5';
+            return '1' <= this.field[cell.Y, cell.X] && this.field[cell.Y, cell.X] <= '5';
         }
 
         public bool IsCellInRange(Cell cell)
@@ -96,26 +92,26 @@
             return isXCoordinateInRange && isYCoordinateInRange;
         }
 
-        public void DetonateMine(int xCoordinate, int yCoordinate)
+        public void DetonateMine(Cell cellToDetonate)
         {
-            Cell[] cellsToDetonate;
+            List<Cell> cellsToDetonate;
 
-            switch (this.field[yCoordinate, xCoordinate] - '0')
+            switch (this.field[cellToDetonate.Y, cellToDetonate.X] - '0')
             {
                 case 1:
-                    cellsToDetonate = PatternFactory.GenerateFirstDetonationPattern(xCoordinate, yCoordinate);
+                    cellsToDetonate = PatternFactory.GenerateFirstDetonationPattern(cellToDetonate);
                     break;
                 case 2:
-                    cellsToDetonate = PatternFactory.GenerateSecondDetonationPattern(xCoordinate, yCoordinate);
+                    cellsToDetonate = PatternFactory.GenerateSecondDetonationPattern(cellToDetonate);
                     break;
                 case 3:
-                    cellsToDetonate = PatternFactory.GenerateThirdDetonationPattern(xCoordinate, yCoordinate);
+                    cellsToDetonate = PatternFactory.GenerateThirdDetonationPattern(cellToDetonate);
                     break;
                 case 4:
-                    cellsToDetonate = PatternFactory.GenerateFourthDetonationPattern(xCoordinate, yCoordinate);
+                    cellsToDetonate = PatternFactory.GenerateFourthDetonationPattern(cellToDetonate);
                     break;
                 case 5:
-                    cellsToDetonate = PatternFactory.GenerateFifthDetonationPattern(xCoordinate, yCoordinate);
+                    cellsToDetonate = PatternFactory.GenerateFifthDetonationPattern(cellToDetonate);
                     break;
                 default:
                     throw new ArgumentException("Cell value is invalid.");
@@ -125,6 +121,8 @@
             {
                 this.DetonateCell(cell);
             }
+
+            this.DetonatedMines++;
         }
 
         public int GetRemainingMinesCount()
@@ -189,8 +187,7 @@
         {
             if (this.IsCellInRange(cellToDetonate))
             {
-                this.field[cellToDetonate.Y, cellToDetonate.X] = 'X';
-                this.DetonatedMines++;
+                this.field[cellToDetonate.Y, cellToDetonate.X] = 'X';                
             }
         }
     }

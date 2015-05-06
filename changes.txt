@@ -12,3 +12,9 @@
 *F: created boolean method to check if a given cell is a mine; made increment of detonated mines private (happens automatically on cell detonation)
 *F: made several methods private, exposed only needed functionality; removed unused variables; changed nested loops with foreach in GetRemainingMIesCountMethod
 *F: moved variables to inner scope; renamed flag to isMinePlaced; fixed numerous StyleCop warnings; TODO: documentation
+*S: change Pattern Factory class's methods to return Lists in order to make methods shorter
+*N: change Pattern Factory class's methods to receive as argument Cell instance instead of xCoordinate and yCoordinate; did the same for methods DetonateMine and IsCellMine in Battlefield class;
+*N: create method GetCellToExplode in BattlefieldApp than returns cellToExplode
+*N: made Battlefield class sealed
+*N: changed method Create in Battlefield to user ?? operator insted of if statement
+*N: moved this.DetonatedMines++ from method GetRemainingMinesCount to DetonateMine

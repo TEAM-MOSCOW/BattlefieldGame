@@ -1,6 +1,8 @@
 ﻿namespace Battlefield
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class BattlefieldApp
     {
@@ -21,28 +23,37 @@
 
             do
             {
-                Console.Write("Enter coordinates: ");
-                var coordinates = Console.ReadLine().Split();
-                var xCoordinate = int.Parse(coordinates[1]);
-                var yCoordinate = int.Parse(coordinates[0]);
+                Cell cellToExplode = GetCellToExplode();
 
-                Cell cellToExplode = new Cell(xCoordinate, yCoordinate);
-
-                while (!battlefield.IsCellInRange(cellToExplode) || !battlefield.IsCellMine(xCoordinate, yCoordinate))
+                while (!battlefield.IsCellInRange(cellToExplode) || !battlefield.IsCellMine(cellToExplode))
                 {
-                    Console.WriteLine("Invalid Move");
-                    Console.Write("Enter coordinates: ");
-                    coordinates = Console.ReadLine().Split();
-                    xCoordinate = int.Parse(coordinates[0]);
-                    yCoordinate = int.Parse(coordinates[1]);
+                    Console.WriteLine("---Invalid Move---");
+                    cellToExplode = GetCellToExplode();
                 }
 
-                battlefield.DetonateMine(xCoordinate, yCoordinate);
+                battlefield.DetonateMine(cellToExplode);
                 battlefield.DisplayField();
             } while (battlefield.GetRemainingMinesCount() != 0);
 
             Console.WriteLine("Game Over. Detonated Mines: " + battlefield.DetonatedMines);
             Console.ReadKey();
+        }
+
+        public static Cell GetCellToExplode()
+        {
+            int xCoordinate,
+                yCoordinate;
+            Console.Write("Enter coordinates: ");
+            var coordinates = Console.ReadLine().Split();
+            
+            while (coordinates.Length != 2 || !int.TryParse(coordinates[1], out xCoordinate) || !int.TryParse(coordinates[0], out yCoordinate))
+            {
+                Console.WriteLine("---Invalid coordinates---");
+                Console.Write("Enter coordinates: ");
+                coordinates = Console.ReadLine().Split();
+            }
+
+            return new Cell(xCoordinate, yCoordinate) ;
         }
     }
 }

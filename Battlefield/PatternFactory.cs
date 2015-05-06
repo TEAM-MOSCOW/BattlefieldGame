@@ -1,121 +1,70 @@
-﻿namespace Battlefield
+﻿using System.Collections.Generic;
+namespace Battlefield
 {
     public static class PatternFactory
     {
-        public static Cell[] GenerateFirstDetonationPattern(int xCoordinate, int yCoordinate)
+        public static List<Cell> GenerateFirstDetonationPattern(Cell cell)
         {
-            Cell[] cellsToDetonate =
+            List<Cell> cellsToDetonate = new List<Cell>
             {
-                new Cell(xCoordinate - 1, yCoordinate - 1),
-                new Cell(xCoordinate + 1, yCoordinate - 1),
-                new Cell(xCoordinate, yCoordinate),
-                new Cell(xCoordinate - 1, yCoordinate + 1),
-                new Cell(xCoordinate + 1, yCoordinate + 1)
+                new Cell(cell.X - 1, cell.Y - 1),
+                new Cell(cell.X + 1, cell.Y - 1),
+                new Cell(cell.X, cell.Y),
+                new Cell(cell.X - 1, cell.Y + 1),
+                new Cell(cell.X + 1, cell.Y + 1)
             };
 
             return cellsToDetonate;
         }
 
-        public static Cell[] GenerateSecondDetonationPattern(int xCoordinate, int yCoordinate)
+        public static List<Cell> GenerateSecondDetonationPattern(Cell cell)
         {
-            Cell[] cellsToDetonate =
-            {
-                new Cell(xCoordinate - 1, yCoordinate - 1),
-                new Cell(xCoordinate, yCoordinate - 1), 
-                new Cell(xCoordinate + 1, yCoordinate - 1),
-                new Cell(xCoordinate - 1, yCoordinate), 
-                new Cell(xCoordinate, yCoordinate),
-                new Cell(xCoordinate + 1, yCoordinate), 
-                new Cell(xCoordinate - 1, yCoordinate + 1),
-                new Cell(xCoordinate, yCoordinate + 1), 
-                new Cell(xCoordinate + 1, yCoordinate + 1)
-            };
+            List<Cell> cellsToDetonate = GenerateFirstDetonationPattern(cell);
+
+            cellsToDetonate.Add(new Cell(cell.X, cell.Y - 1));
+            cellsToDetonate.Add(new Cell(cell.X, cell.Y + 1));
+            cellsToDetonate.Add(new Cell(cell.X - 1, cell.Y));
+            cellsToDetonate.Add(new Cell(cell.X + 1, cell.Y));
 
             return cellsToDetonate;
         }
 
-        public static Cell[] GenerateThirdDetonationPattern(int xCoordinate, int yCoordinate)
+        public static List<Cell> GenerateThirdDetonationPattern(Cell cell)
         {
-            Cell[] cellsToDetonate =
-            {
-                new Cell(xCoordinate, yCoordinate - 2), 
-                new Cell(xCoordinate - 1, yCoordinate - 1),
-                new Cell(xCoordinate, yCoordinate - 1), 
-                new Cell(xCoordinate + 1, yCoordinate - 1),
-                new Cell(xCoordinate - 2, yCoordinate),
-                new Cell(xCoordinate - 1, yCoordinate), 
-                new Cell(xCoordinate, yCoordinate),
-                new Cell(xCoordinate + 1, yCoordinate), 
-                new Cell(xCoordinate + 2, yCoordinate), 
-                new Cell(xCoordinate - 1, yCoordinate + 1),
-                new Cell(xCoordinate, yCoordinate + 1), 
-                new Cell(xCoordinate + 1, yCoordinate + 1),
-                new Cell(xCoordinate, yCoordinate + 2)
-            };
+            List<Cell> cellsToDetonate = GenerateSecondDetonationPattern(cell);
+
+            cellsToDetonate.Add(new Cell(cell.X, cell.Y - 2));
+            cellsToDetonate.Add(new Cell(cell.X, cell.Y + 2));
+            cellsToDetonate.Add(new Cell(cell.X - 2, cell.Y));
+            cellsToDetonate.Add(new Cell(cell.X + 2, cell.Y));
 
             return cellsToDetonate;
         }
 
-        public static Cell[] GenerateFourthDetonationPattern(int xCoordinate, int yCoordinate)
+        public static List<Cell> GenerateFourthDetonationPattern(Cell cell)
         {
-            Cell[] cellsToDetonate =
-            {
-                new Cell(xCoordinate - 1, yCoordinate - 2),
-                new Cell(xCoordinate, yCoordinate - 2),
-                new Cell(xCoordinate + 1, yCoordinate - 2), 
-                new Cell(xCoordinate - 2, yCoordinate - 1),
-                new Cell(xCoordinate - 1, yCoordinate - 1), 
-                new Cell(xCoordinate, yCoordinate - 1), 
-                new Cell(xCoordinate + 1, yCoordinate - 1), 
-                new Cell(xCoordinate + 2, yCoordinate - 1), 
-                new Cell(xCoordinate - 2, yCoordinate),
-                new Cell(xCoordinate - 1, yCoordinate), 
-                new Cell(xCoordinate, yCoordinate), 
-                new Cell(xCoordinate + 1, yCoordinate), 
-                new Cell(xCoordinate + 2, yCoordinate), 
-                new Cell(xCoordinate - 2, yCoordinate + 1),
-                new Cell(xCoordinate - 1, yCoordinate + 1), 
-                new Cell(xCoordinate, yCoordinate + 1), 
-                new Cell(xCoordinate + 1, yCoordinate + 1), 
-                new Cell(xCoordinate + 2, yCoordinate + 1), 
-                new Cell(xCoordinate - 1, yCoordinate + 2),
-                new Cell(xCoordinate, yCoordinate + 2),
-                new Cell(xCoordinate + 1, yCoordinate + 2)
-            };
+            List<Cell> cellsToDetonate = GenerateThirdDetonationPattern(cell);
+
+            cellsToDetonate.Add(new Cell(cell.X - 1, cell.Y - 2));
+            cellsToDetonate.Add(new Cell(cell.X + 1, cell.Y - 2));
+            cellsToDetonate.Add(new Cell(cell.X - 1, cell.Y + 2));
+            cellsToDetonate.Add(new Cell(cell.X + 1, cell.Y + 2));
+            cellsToDetonate.Add(new Cell(cell.X - 2, cell.Y - 1));
+            cellsToDetonate.Add(new Cell(cell.X - 2, cell.Y + 1));
+            cellsToDetonate.Add(new Cell(cell.X + 2, cell.Y - 1));
+            cellsToDetonate.Add(new Cell(cell.X + 2, cell.Y + 1));
 
             return cellsToDetonate;
         }
 
-        public static Cell[] GenerateFifthDetonationPattern(int xCoordinate, int yCoordinate)
+        public static List<Cell> GenerateFifthDetonationPattern(Cell cell)
         {
-            Cell[] cellsToDetonate =
-            {
-                new Cell(xCoordinate - 2, yCoordinate - 2),
-                new Cell(xCoordinate - 1, yCoordinate - 2),
-                new Cell(xCoordinate, yCoordinate - 2),
-                new Cell(xCoordinate + 1, yCoordinate - 2), 
-                new Cell(xCoordinate + 2, yCoordinate - 2),
-                new Cell(xCoordinate - 2, yCoordinate - 1),
-                new Cell(xCoordinate - 1, yCoordinate - 1), 
-                new Cell(xCoordinate, yCoordinate - 1), 
-                new Cell(xCoordinate + 1, yCoordinate - 1), 
-                new Cell(xCoordinate + 2, yCoordinate - 1), 
-                new Cell(xCoordinate - 2, yCoordinate),
-                new Cell(xCoordinate - 1, yCoordinate), 
-                new Cell(xCoordinate, yCoordinate), 
-                new Cell(xCoordinate + 1, yCoordinate), 
-                new Cell(xCoordinate + 2, yCoordinate), 
-                new Cell(xCoordinate - 2, yCoordinate + 1),
-                new Cell(xCoordinate - 1, yCoordinate + 1), 
-                new Cell(xCoordinate, yCoordinate + 1), 
-                new Cell(xCoordinate + 1, yCoordinate + 1), 
-                new Cell(xCoordinate + 2, yCoordinate + 1), 
-                new Cell(xCoordinate - 2, yCoordinate + 2),
-                new Cell(xCoordinate - 1, yCoordinate + 2),
-                new Cell(xCoordinate, yCoordinate + 2),
-                new Cell(xCoordinate + 1, yCoordinate + 2),
-                new Cell(xCoordinate + 2, yCoordinate + 2),
-            };
+            List<Cell> cellsToDetonate = GenerateFourthDetonationPattern(cell);
+
+            cellsToDetonate.Add(new Cell(cell.X - 2, cell.Y - 2));
+            cellsToDetonate.Add(new Cell(cell.X - 2, cell.Y + 2));
+            cellsToDetonate.Add(new Cell(cell.X + 2, cell.Y - 2));
+            cellsToDetonate.Add(new Cell(cell.X + 2, cell.Y + 2));
 
             return cellsToDetonate;
         }
