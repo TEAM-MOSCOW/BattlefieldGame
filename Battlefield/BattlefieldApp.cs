@@ -38,7 +38,9 @@
             {
                 Console.Write("Enter legal size of board: ");
                 tempFieldSize = Console.ReadLine();
-            } while ((!int.TryParse(tempFieldSize, out size)) || (size < Battlefield.MinFieldSize) || (size > Battlefield.MaxFieldSize));
+            } while ((!int.TryParse(tempFieldSize, out size)) ||
+                (size < Battlefield.MinFieldSize) ||
+                (size > Battlefield.MaxFieldSize));
 
             return size;
         }
