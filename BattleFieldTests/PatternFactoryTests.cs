@@ -21,9 +21,10 @@ namespace BattleFieldTests
                 new Cell(3, 5)
             };
             
-            CollectionAssert.AreEqual(PatternFactory.GenerateFirstDetonationPattern(cell).ToArray(), cellsToDetonate.ToArray());
+            CollectionAssert.AreEqual(PatternFactory.GenerateFirstDetonationPattern(cell), cellsToDetonate);
         }
 
+        [TestMethod]
         public void TestGenerateSecondDetonationPattern()
         {
             var cell = new Cell(2, 4);
@@ -40,7 +41,100 @@ namespace BattleFieldTests
                 new Cell(3, 4)
             };
 
-            CollectionAssert.AreEqual(PatternFactory.GenerateSecondDetonationPattern(cell).ToArray(), cellsToDetonate.ToArray());
+            CollectionAssert.AreEqual(PatternFactory.GenerateSecondDetonationPattern(cell), cellsToDetonate);
+        }
+
+        [TestMethod]
+        public void TestGenerateThirdDetonationPattern()
+        {
+            var cell = new Cell(0, 0);
+
+            List<Cell> cellsToDetonate = new List<Cell>
+            {
+
+                new Cell(-1, -1),
+                new Cell(1, -1),
+                new Cell(0, 0),
+                new Cell(-1, 1),
+                new Cell(1, 1),
+                new Cell(0, -1),
+                new Cell(0, 1),
+                new Cell(-1, 0),
+                new Cell(1, 0),
+                new Cell(0, -2),
+                new Cell(0, 2),
+                new Cell(-2, 0),
+                new Cell(2, 0)
+            };
+
+            CollectionAssert.AreEqual(PatternFactory.GenerateThirdDetonationPattern(cell), cellsToDetonate);
+        }
+
+        [TestMethod]
+        public void TestGenerateFourthDetonationPattern()
+        {
+            var cell = new Cell(0, 0);
+
+            List<Cell> cellsToDetonate = new List<Cell>
+            {
+
+                new Cell(-1, -1),
+                new Cell(1, -1),
+                new Cell(0, 0),
+                new Cell(-1, 1),
+                new Cell(1, 1),
+                new Cell(0, -1),
+                new Cell(0, 1),
+                new Cell(-1, 0),
+                new Cell(1, 0),
+                new Cell(0, -2),
+                new Cell(0, 2),
+                new Cell(-2, 0),
+                new Cell(2, 0),
+                new Cell(-1, -2),
+                new Cell(1, -2),
+                new Cell(-1, 2),
+                new Cell(1, 2),
+                new Cell(-2, -1),
+                new Cell(-2, 1),
+                new Cell(2, -1),
+                new Cell(2, 1),
+            };
+
+            CollectionAssert.AreEqual(PatternFactory.GenerateFourthDetonationPattern(cell), cellsToDetonate);
+        }
+
+        public void TestGenerateFifthDetonationPattern()
+        {
+            var cell = new Cell(0, 0);
+
+            List<Cell> cellsToDetonate = new List<Cell>
+            {
+
+                new Cell(-1, -1),
+                new Cell(1, -1),
+                new Cell(0, 0),
+                new Cell(-1, 1),
+                new Cell(1, 1),
+                new Cell(0, -1),
+                new Cell(0, 1),
+                new Cell(-1, 0),
+                new Cell(1, 0),
+                new Cell(0, -2),
+                new Cell(0, 2),
+                new Cell(-2, 0),
+                new Cell(2, 0),
+                new Cell(-1, -2),
+                new Cell(1, -2),
+                new Cell(-1, 2),
+                new Cell(1, 2),
+                new Cell(-2, -1),
+                new Cell(-2, 1),
+                new Cell(2, -1),
+                new Cell(2, 1),
+            };
+
+            CollectionAssert.AreEqual(PatternFactory.GenerateFourthDetonationPattern(cell), cellsToDetonate);
         }
     }
 }

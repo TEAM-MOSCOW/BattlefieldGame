@@ -26,3 +26,4 @@
 *F: Separated files in folders; added more documentation; attempting to mock
 *S: Added Test project, and started testing Pattern Factory
 *F: Added additional documentation; replaced do-while loops with while loops
+*S: Finished testing Pattern Factory
