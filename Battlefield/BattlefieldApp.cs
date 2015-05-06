@@ -39,7 +39,7 @@
                 Console.Write("Enter legal size of board: ");
                 tempFieldSize = Console.ReadLine();
             } while ((!int.TryParse(tempFieldSize, out size)) || (size < Battlefield.MinFieldSize) || (size > Battlefield.MaxFieldSize));
-            
+
             return size;
         }
 
@@ -49,7 +49,7 @@
                 yCoordinate;
             Console.Write("Enter coordinates: ");
             var coordinates = Console.ReadLine().Split();
-            
+
             while (coordinates.Length != 2 || !int.TryParse(coordinates[1], out xCoordinate) || !int.TryParse(coordinates[0], out yCoordinate))
             {
                 Console.WriteLine("---Invalid coordinates---");
@@ -57,7 +57,7 @@
                 coordinates = Console.ReadLine().Split();
             }
 
-            return new Cell(xCoordinate, yCoordinate) ;
+            return new Cell(xCoordinate, yCoordinate);
         }
     }
 }

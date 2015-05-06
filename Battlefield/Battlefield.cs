@@ -10,6 +10,7 @@
         private const double MinBombsPercentage = 0.15;
         private const double MaxBombsPercentage = 0.30;
         
+        private static Random rnd = new Random();
         private static Battlefield instance;
         private char[,] field;
         private int fieldSize;
@@ -42,7 +43,6 @@
                 this.fieldSize = value;
             }
         }
-
         
         public static Battlefield Create(int size)
         {
@@ -137,6 +137,7 @@
                 default:
                     throw new ArgumentException("Cell value is invalid.");
             }
+
             return cellsToExplode;
         }
 
@@ -150,7 +151,7 @@
              * We pass the detonated cell to the method cellsToExplode and get the
              * cells that have to explode
              */
-            List<Cell> cellsToExplode = CellsToExplode(detonatedCell);
+            List<Cell> cellsToExplode = this.CellsToExplode(detonatedCell);
 
             foreach (var cell in cellsToExplode)
             {
@@ -198,13 +199,11 @@
         /// <summary>
         /// Gets the number of mines that will be placed on the battlefield
         /// </summary>
-        /// <returns>the number of mines</returns>
-        public int MinesCount()
+        /// <returns>A valid number of mines in the specified range.</returns>
+        public int GetMinesCount()
         {
             int minesLowerLimit = (int)Math.Floor(MinBombsPercentage * this.FieldSize * this.FieldSize);
             int minesUpperLimit = (int)Math.Floor(MaxBombsPercentage * this.FieldSize * this.FieldSize);
-
-            Random rnd = new Random();
 
             int minesCount = rnd.Next(minesLowerLimit, minesUpperLimit + 1);
 
@@ -212,13 +211,11 @@
         }
 
         /// <summary>
-        /// Initializes the mines
+        /// Initializes the mines on the battlefield
         /// </summary>
         private void InitMines()
         {
-            
-            int minesCount = MinesCount();
-            Random rnd = new Random();
+            int minesCount = this.GetMinesCount();
 
             for (int i = 0; i < minesCount; i++)
             {
@@ -242,7 +239,7 @@
         }
 
         /// <summary>
-        /// Detonates a certain cell
+        /// Detonates a single cell on the battlefield
         /// </summary>
         /// <param name="cellToDetonate">An object containing the coordinates of the detonated mine</param>
         private void DetonateCell(Cell cellToDetonate)
