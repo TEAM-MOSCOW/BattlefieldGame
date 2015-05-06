@@ -97,12 +97,13 @@
                 new Cell(-2, -1),
                 new Cell(-2, 1),
                 new Cell(2, -1),
-                new Cell(2, 1),
+                new Cell(2, 1)
             };
 
             CollectionAssert.AreEqual(PatternFactory.GenerateFourthDetonationPattern(cell), cellsToDetonate);
         }
 
+        [TestMethod]
         public void TestGenerateFifthDetonationPattern()
         {
             var cell = new Cell(0, 0);
@@ -131,9 +132,16 @@
                 new Cell(-2, 1),
                 new Cell(2, -1),
                 new Cell(2, 1),
+
+
+
+                new Cell(-2, -2),
+                new Cell(-2, 2),
+                new Cell(2, -2),
+                new Cell(2, 2)
             };
 
-            CollectionAssert.AreEqual(PatternFactory.GenerateFourthDetonationPattern(cell), cellsToDetonate);
+            CollectionAssert.AreEqual(PatternFactory.GenerateFifthDetonationPattern(cell), cellsToDetonate);
         }
     }
 }

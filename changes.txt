@@ -27,3 +27,4 @@
 *S: Added Test project, and started testing Pattern Factory
 *F: Added additional documentation; replaced do-while loops with while loops
 *S: Finished testing Pattern Factory
+*N: Fix Pattern Factory GenerateFifthDetonationPattern Test; add Battlefield tests;
