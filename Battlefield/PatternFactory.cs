@@ -3,7 +3,9 @@ namespace Battlefield
 {
     public static class PatternFactory
     {
+
         public static List<Cell> GenerateFirstDetonationPattern(Cell cell)
+
         {
             List<Cell> cellsToDetonate = new List<Cell>
             {
