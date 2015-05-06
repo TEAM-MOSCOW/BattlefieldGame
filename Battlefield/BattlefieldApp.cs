@@ -8,16 +8,7 @@
     {
         public static void Main(string[] args)
         {
-            string tempFieldSize;
-            int size;
-            Console.WriteLine("Welcome to the Battle Field game");
-
-            do
-            {
-                Console.Write("Enter legal size of board: ");
-                tempFieldSize = Console.ReadLine();
-            } while ((!int.TryParse(tempFieldSize, out size)) || (size < Battlefield.MinFieldSize) || (size > Battlefield.MaxFieldSize));
-
+            int size = GetBattleFieldSize();
             Battlefield battlefield = Battlefield.Create(size);
             battlefield.DisplayField();
 
@@ -37,6 +28,21 @@
 
             Console.WriteLine("Game Over. Detonated Mines: " + battlefield.DetonatedMines);
             Console.ReadKey();
+        }
+
+        public static int GetBattleFieldSize()
+        {
+            int size;
+            string tempFieldSize;
+            Console.WriteLine("Welcome to the Battle Field game");
+
+            do
+            {
+                Console.Write("Enter legal size of board: ");
+                tempFieldSize = Console.ReadLine();
+            } while ((!int.TryParse(tempFieldSize, out size)) || (size < Battlefield.MinFieldSize) || (size > Battlefield.MaxFieldSize));
+            
+            return size;
         }
 
         public static Cell GetCellToExplode()
