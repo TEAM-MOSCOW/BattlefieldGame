@@ -1,6 +1,7 @@
 ﻿namespace Battlefield
 {
     using System;
+    using System.Collections.Generic;
 
     public class Battlefield
     {
@@ -98,7 +99,7 @@
 
         public void DetonateMine(int xCoordinate, int yCoordinate)
         {
-            Cell[] cellsToDetonate;
+            List<Cell> cellsToDetonate;
 
             switch (this.field[yCoordinate, xCoordinate] - '0')
             {
