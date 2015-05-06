@@ -54,7 +54,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Mocks\RandomNumberGeneratorMock.cs" />
     <Compile Include="PatternFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
