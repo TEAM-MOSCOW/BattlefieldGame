@@ -2,6 +2,9 @@
 {
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Static class responsible for generating the detonation patterns for different types of mines.
+    /// </summary>
     public static class PatternFactory
     {
         /// <summary>
@@ -9,7 +12,6 @@
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>
-
         public static List<Cell> GenerateFirstDetonationPattern(Cell cell)
         {
             List<Cell> cellsToDetonate = new List<Cell>
@@ -25,8 +27,7 @@
         }
 
         /// <summary>
-        /// Method that shows the explosion pattern of a mine with the value of 2.
-        /// 
+        /// Method that shows the explosion pattern of a mine with the value of 2. 
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>

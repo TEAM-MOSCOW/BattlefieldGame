@@ -2,9 +2,15 @@
 {
     using System;
 
+    /// <summary>
+    /// Main class for the program
+    /// </summary>
     public class BattlefieldApp
     {
-        public static void Main(string[] args)
+        /// <summary>
+        /// Main method for the game
+        /// </summary>
+        public static void Main()
         {
             int size = GetBattleFieldSize();
             Battlefield battlefield = Battlefield.Create(size);
@@ -28,6 +34,10 @@
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// A method which reads input from the console in order to set the battlefield size
+        /// </summary>
+        /// <returns>The size of the battlefield entered by the user.</returns>
         public static int GetBattleFieldSize()
         {
             int size;
@@ -45,10 +55,15 @@
             return size;
         }
 
+        /// <summary>
+        /// A method which reads user input in order to create a cell object which should be detonated.
+        /// </summary>
+        /// <returns>A cell object which should be detonated.</returns>
         public static Cell GetCellToExplode()
         {
-            int xCoordinate,
-                yCoordinate;
+            int xCoordinate;
+            int yCoordinate;
+
             Console.Write("Enter coordinates: ");
             var coordinates = Console.ReadLine().Split();
 

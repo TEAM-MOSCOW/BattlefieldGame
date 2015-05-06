@@ -23,3 +23,4 @@
 *S: XML Documentation to Pattern Factory
 *S: XML Documentation to Battlefield and splited DetonateMine-> Detonate Mine, CellsToExplode
 *F: Renamed method, minor formatting fixes
+*F: Separated files in folders; added more doumentation; attempting to mock

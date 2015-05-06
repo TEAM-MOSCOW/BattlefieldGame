@@ -41,14 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Battlefield.cs" />
+    <Compile Include="Models\Battlefield.cs" />
     <Compile Include="BattlefieldApp.cs" />
-    <Compile Include="Cell.cs" />
-    <Compile Include="PatternFactory.cs" />
+    <Compile Include="Models\Cell.cs" />
+    <Compile Include="Models\PatternFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
