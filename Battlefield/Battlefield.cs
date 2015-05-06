@@ -4,30 +4,57 @@
 
     public class Battlefield
     {
-        public static int fieldSize = 0;
-        public int detonatedMines = 0;
-        public char[,] positions = new char[fieldSize, fieldSize];
+        public const int MinFieldSize = 1;
+        public const int MaxFieldSize = 10;
 
-        public Battlefield()
+        private static Battlefield instance;
+        private char[,] field;
+        private int fieldSize;
+
+        private Battlefield(int size)
         {
+            this.FieldSize = size;
+            this.InitField();
+            this.InitMines();
         }
 
-        public void InitField()
+        public int DetonatedMines { get; private set; }
+
+        public int FieldSize
         {
-            for (int i = 0; i < fieldSize; i++)
+            get
             {
-                for (int j = 0; j < fieldSize; j++)
-                {
-                    this.positions[i, j] = '-';
-                }
+                return this.fieldSize;
             }
+
+            private set
+            {
+                if (value < 0 || 10 < value)
+                {
+                    throw new ArgumentOutOfRangeException(
+                        string.Format("The field size should be in the range [{0} ... {1}].", MinFieldSize, MaxFieldSize),
+                        "fieldSize");
+                }
+
+                this.fieldSize = value;
+            }
+        }
+
+        public static Battlefield Create(int size)
+        {
+            if (instance == null)
+            {
+                instance = new Battlefield(size);
+            }
+
+            return instance;
         }
 
         public void DisplayField()
         {
             // top side numbers
             Console.Write("{0}", new string(' ', 2));
-            for (int i = 0; i < fieldSize; i++)
+            for (int i = 0; i < this.FieldSize; i++)
             {
                 Console.Write(" {0}", i);
             }
@@ -35,7 +62,7 @@
             Console.WriteLine();
 
             Console.Write("{0}", new string(' ', 2));
-            for (int i = 0; i < 2 * fieldSize; i++)
+            for (int i = 0; i < 2 * this.FieldSize; i++)
             {
                 Console.Write("-");
             }
@@ -43,63 +70,28 @@
             Console.WriteLine();
 
             // top side numbers
-            for (int i = 0; i < fieldSize; i++)
+            for (int i = 0; i < this.FieldSize; i++)
             {
                 // left side numbers
                 Console.Write("{0}|", i);
-                for (int j = 0; j < fieldSize; j++)
+                for (int j = 0; j < this.FieldSize; j++)
                 {
-                    Console.Write(" {0}", this.positions[i, j]);
+                    Console.Write(" {0}", this.field[i, j]);
                 }
 
                 Console.WriteLine();
             }
         }
 
-        public void InitMines()
+        public bool IsCellMine(int row, int column)
         {
-            int minesDownLimit = Convert.ToInt32(0.15 * fieldSize * fieldSize);
-            int minesUpperLimit = Convert.ToInt32(0.30 * fieldSize * fieldSize);
-            int tempMineXCoordinate;
-            int tempMineYCoordinate;
-            bool flag = true;
-            Random rnd = new Random();
-
-            int minesCount = Convert.ToInt32(rnd.Next(minesDownLimit, minesUpperLimit));
-            int[,] minesPositions = new int[minesCount, minesCount];
-            Console.WriteLine("mines count is: " + minesCount);
-
-            for (int i = 0; i < minesCount; i++)
-            {
-                do
-                {
-                    tempMineXCoordinate = Convert.ToInt32(rnd.Next(0, fieldSize - 1));
-                    tempMineYCoordinate = Convert.ToInt32(rnd.Next(0, fieldSize - 1));
-
-                    if (this.positions[tempMineXCoordinate, tempMineYCoordinate] == '-')
-                    {
-                        this.positions[tempMineXCoordinate, tempMineYCoordinate] = (char)(rnd.Next(1, 6) + '0');
-                    }
-                    else
-                    {
-                        flag = false;
-                    }
-                } while (flag);
-            }
-        }
-
-        public void DetonateCell(Cell cellToDetonate)
-        {
-            if (IsCellInRange(cellToDetonate))
-            {
-                positions[cellToDetonate.Y, cellToDetonate.X] = 'X';
-            }
+            return '1' <= this.field[row, column] && this.field[row, column] <= '5';
         }
 
         public bool IsCellInRange(Cell cell)
         {
-            bool isXCoordinateInRange = 0 <= cell.X && cell.X < fieldSize;
-            bool isYCoordinateInRange = 0 <= cell.Y && cell.Y < fieldSize;
+            bool isXCoordinateInRange = 0 <= cell.X && cell.X < this.FieldSize;
+            bool isYCoordinateInRange = 0 <= cell.Y && cell.Y < this.FieldSize;
 
             return isXCoordinateInRange && isYCoordinateInRange;
         }
@@ -108,7 +100,7 @@
         {
             Cell[] cellsToDetonate;
 
-            switch (this.positions[yCoordinate, xCoordinate] - '0')
+            switch (this.field[yCoordinate, xCoordinate] - '0')
             {
                 case 1:
                     cellsToDetonate = PatternFactory.GenerateFirstDetonationPattern(xCoordinate, yCoordinate);
@@ -126,12 +118,12 @@
                     cellsToDetonate = PatternFactory.GenerateFifthDetonationPattern(xCoordinate, yCoordinate);
                     break;
                 default:
-                    throw new Exception();
+                    throw new ArgumentException("Cell value is invalid.");
             }
 
             foreach (var cell in cellsToDetonate)
             {
-                DetonateCell(cell);
+                this.DetonateCell(cell);
             }
         }
 
@@ -139,18 +131,67 @@
         {
             int count = 0;
 
-            for (int i = 0; i < fieldSize; i++)
+            foreach (var cell in this.field)
             {
-                for (int j = 0; i < fieldSize; i++)
+                if (cell != 'X' && cell != '-')
                 {
-                    if ((this.positions[i, j] != 'X') && (this.positions[i, j] != '-'))
-                    {
-                        count++;
-                    }
+                    count++;
                 }
             }
 
             return count;
+        }
+
+        private void InitField()
+        {
+            this.field = new char[this.FieldSize, this.FieldSize];
+
+            for (int row = 0; row < this.FieldSize; row++)
+            {
+                for (int column = 0; column < this.FieldSize; column++)
+                {
+                    this.field[row, column] = '-';
+                }
+            }
+        }
+
+        private void InitMines()
+        {
+            int minesLowerLimit = (int)Math.Floor(0.15 * this.FieldSize * this.FieldSize);
+            int minesUpperLimit = (int)Math.Floor(0.30 * this.FieldSize * this.FieldSize);
+
+            Random rnd = new Random();
+
+            int minesCount = rnd.Next(minesLowerLimit, minesUpperLimit + 1);
+
+            for (int i = 0; i < minesCount; i++)
+            {
+                bool isMinePlaced = false;
+
+                while (!isMinePlaced)
+                {
+                    var tempXCoordinate = rnd.Next(0, this.FieldSize - 1);
+                    var tempYCoordinate = rnd.Next(0, this.FieldSize - 1);
+
+                    if (this.field[tempXCoordinate, tempYCoordinate] == '-')
+                    {
+                        this.field[tempXCoordinate, tempYCoordinate] = (char)(rnd.Next(1, 6) + '0');
+                    }
+                    else
+                    {
+                        isMinePlaced = true;
+                    }
+                }
+            }
+        }
+
+        private void DetonateCell(Cell cellToDetonate)
+        {
+            if (this.IsCellInRange(cellToDetonate))
+            {
+                this.field[cellToDetonate.Y, cellToDetonate.X] = 'X';
+                this.DetonatedMines++;
+            }
         }
     }
 }

@@ -7,18 +7,17 @@
         public static void Main(string[] args)
         {
             string tempFieldSize;
+            int size;
             Console.WriteLine("Welcome to the Battle Field game");
 
             do
             {
                 Console.Write("Enter legal size of board: ");
                 tempFieldSize = Console.ReadLine();
-            } while ((!int.TryParse(tempFieldSize, out Battlefield.fieldSize)) || (Battlefield.fieldSize < 0) || (Battlefield.fieldSize > 11));
+            } while ((!int.TryParse(tempFieldSize, out size)) || (size < Battlefield.MinFieldSize) || (size > Battlefield.MaxFieldSize));
 
-            Battlefield bf = new Battlefield();
-            bf.InitField();
-            bf.InitMines();
-            bf.DisplayField();
+            Battlefield battlefield = Battlefield.Create(size);
+            battlefield.DisplayField();
 
             do
             {
@@ -29,7 +28,7 @@
 
                 Cell cellToExplode = new Cell(xCoordinate, yCoordinate);
 
-                while (!bf.IsCellInRange(cellToExplode) || (bf.positions[yCoordinate, xCoordinate] == '-') || bf.positions[yCoordinate, xCoordinate] == 'X')
+                while (!battlefield.IsCellInRange(cellToExplode) || !battlefield.IsCellMine(xCoordinate, yCoordinate))
                 {
                     Console.WriteLine("Invalid Move");
                     Console.Write("Enter coordinates: ");
@@ -38,12 +37,11 @@
                     yCoordinate = int.Parse(coordinates[1]);
                 }
 
-                bf.DetonateMine(xCoordinate, yCoordinate);
-                bf.DisplayField();
-                bf.detonatedMines++;
-            } while (bf.GetRemainingMinesCount() != 0);
+                battlefield.DetonateMine(xCoordinate, yCoordinate);
+                battlefield.DisplayField();
+            } while (battlefield.GetRemainingMinesCount() != 0);
 
-            Console.WriteLine("Game Over. Detonated Mines: " + bf.detonatedMines);
+            Console.WriteLine("Game Over. Detonated Mines: " + battlefield.DetonatedMines);
             Console.ReadKey();
         }
     }
