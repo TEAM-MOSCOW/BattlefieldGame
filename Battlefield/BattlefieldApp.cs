@@ -1,6 +1,7 @@
 ﻿namespace Battlefield
 {
     using System;
+    using Interfaces;
 
     /// <summary>
     /// Main class for the program
@@ -15,7 +16,7 @@
             Console.WriteLine("Welcome to the Battle Field game");
 
             int size = GetBattleFieldSize();
-            Battlefield battlefield = Battlefield.Create(size);
+            IBattlefield battlefield = Battlefield.Create(size);
             battlefield.DisplayField();
 
             while (battlefield.GetRemainingMinesCount() != 0)
