@@ -8,7 +8,7 @@
     /// <summary>
     /// A class representing a battlefield where actions take place.
     /// </summary>
-    public sealed class Battlefield
+    public sealed class Battlefield : IBattlefield
     {
         /// <summary>
         /// A constant holding the minimum field size allowed.
@@ -161,7 +161,7 @@
         /// <summary>
         /// Method that explodes cells from a given detonated cell
         /// </summary>
-        /// <param name="detonatedCell">The cell that have benn detonated</param>
+        /// <param name="detonatedCell">The cell that have been detonated</param>
         public void DetonateMine(Cell detonatedCell)
         {
             /*
