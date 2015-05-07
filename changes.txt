@@ -29,3 +29,4 @@
 *S: Finished testing Pattern Factory
 *N: Fix Pattern Factory GenerateFifthDetonationPattern Test; add Battlefield tests;
 *F: Extracted an interface for the battlefield
+TODO: extract console renderer!
