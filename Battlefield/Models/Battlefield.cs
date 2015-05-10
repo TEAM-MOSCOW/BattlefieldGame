@@ -127,7 +127,7 @@
             for (int i = 0; i < this.FieldSize; i++)
             {
                 // left side numbers
-                Console.Write("{0}|", i);
+                renderer.Output.AppendFormat("{0}|", i);
                 for (int j = 0; j < this.FieldSize; j++)
                 {
                    renderer.Output.AppendFormat(" {0}", this.field[i, j]);
