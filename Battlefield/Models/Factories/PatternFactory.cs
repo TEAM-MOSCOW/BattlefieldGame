@@ -1,6 +1,7 @@
-﻿namespace Battlefield
+﻿namespace Battlefield.Models.Factories
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Static class responsible for generating the detonation patterns for different types of mines.
@@ -12,7 +13,7 @@
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>
-        public static List<Cell> GenerateFirstDetonationPattern(Cell cell)
+        public static IEnumerable<Cell> GenerateFirstDetonationPattern(Cell cell)
         {
             List<Cell> cellsToDetonate = new List<Cell>
             {
@@ -31,13 +32,13 @@
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>
-        public static List<Cell> GenerateSecondDetonationPattern(Cell cell)
+        public static IEnumerable<Cell> GenerateSecondDetonationPattern(Cell cell)
         {
             /*
              * the pattern of a mine with the value of 2 is similar to the pattern of a mine with the value of 1
              * so we assign a variable to the method GenerateFirstDetonationPattern
              */
-            List<Cell> cellsToDetonate = GenerateFirstDetonationPattern(cell);
+            List<Cell> cellsToDetonate = GenerateFirstDetonationPattern(cell).ToList();
 
             /*
              * then we add the additional Cells 
@@ -55,13 +56,13 @@
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>
-        public static List<Cell> GenerateThirdDetonationPattern(Cell cell)
+        public static IEnumerable<Cell> GenerateThirdDetonationPattern(Cell cell)
         {
             /*
              * the pattern of a mine with the value of 2 is similar to the pattern of a mine with the value of 1
              * so we assign a variable to the method GenerateSecondDetonationPattern
              */
-            List<Cell> cellsToDetonate = GenerateSecondDetonationPattern(cell);
+            List<Cell> cellsToDetonate = GenerateSecondDetonationPattern(cell).ToList();
 
             /*
              * then we add the additional Cells 
@@ -79,13 +80,13 @@
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>
-        public static List<Cell> GenerateFourthDetonationPattern(Cell cell)
+        public static IEnumerable<Cell> GenerateFourthDetonationPattern(Cell cell)
         {
             /*
              * the pattern of a mine with the value of 2 is similar to the pattern of a mine with the value of 1
              * so we assign a variable to the method GenerateSecondDetonationPattern
              */
-            List<Cell> cellsToDetonate = GenerateThirdDetonationPattern(cell);
+            List<Cell> cellsToDetonate = GenerateThirdDetonationPattern(cell).ToList();
 
             /*
              * then we add the additional Cells 
@@ -107,13 +108,13 @@
         /// </summary>
         /// <param name="cell">Contains the coordinates of the detonated mine.</param>
         /// <returns>List of Cells that are affected by the explosion</returns>
-        public static List<Cell> GenerateFifthDetonationPattern(Cell cell)
+        public static IEnumerable<Cell> GenerateFifthDetonationPattern(Cell cell)
         {
             /*
              * the pattern of a mine with the value of 2 is similar to the pattern of a mine with the value of 1
              * so we assign a variable to the method GenerateFourthDetonationPattern
              */
-            List<Cell> cellsToDetonate = GenerateFourthDetonationPattern(cell);
+            List<Cell> cellsToDetonate = GenerateFourthDetonationPattern(cell).ToList();
 
             /*
              * then we add the additional Cells 

@@ -41,13 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\BattlefieldGameEngine.cs" />
     <Compile Include="Interfaces\IBattlefield.cs" />
+    <Compile Include="Interfaces\IBattlefieldGameEngine.cs" />
+    <Compile Include="Interfaces\IInputHandler.cs" />
     <Compile Include="Interfaces\IRandomNumberGenerator.cs" />
+    <Compile Include="Interfaces\IRenderer.cs" />
     <Compile Include="Models\Battlefield.cs" />
     <Compile Include="BattlefieldApp.cs" />
     <Compile Include="Models\Cell.cs" />
-    <Compile Include="Models\PatternFactory.cs" />
+    <Compile Include="Models\Factories\PatternFactory.cs" />
     <Compile Include="Models\RandomNumberGenerator.cs" />
+    <Compile Include="Models\UI\ConsoleInputHandler.cs" />
+    <Compile Include="Models\UI\ConsoleRenderer.cs" />
+    <Compile Include="Models\UI\GameMessages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

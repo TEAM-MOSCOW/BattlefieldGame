@@ -29,4 +29,7 @@
 *S: Finished testing Pattern Factory
 *N: Fix Pattern Factory GenerateFifthDetonationPattern Test; add Battlefield tests;
 *F: Extracted an interface for the battlefield
-TODO: extract console renderer!
+*F: Decoupled app from console by extracting two interfaces for input/output, along with two implementations - console renderer and console input handler
+*F: Created game engine to hold game logic
+*F: Separated messages into a static class with constants
+*F: Decoupled battlefield class from console by injecting a renderer; completed code documentation

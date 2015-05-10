@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Interfaces;
     using Models;
+    using Models.Factories;
 
     /// <summary>
     /// A class representing a battlefield where actions take place.
@@ -102,24 +103,25 @@
         /// <summary>
         /// Displays the battle field on the console
         /// </summary>
-        public void DisplayField()
+        /// <param name="renderer">A renderer responsible for showing messages on the output</param>
+        public void DisplayField(IRenderer renderer)
         {
             // top side numbers
-            Console.Write("{0}", new string(' ', 2));
+            renderer.Output.AppendFormat("{0}", new string(' ', 2));
             for (int i = 0; i < this.FieldSize; i++)
             {
-                Console.Write(" {0}", i);
+                renderer.Output.AppendFormat(" {0}", i);
             }
 
-            Console.WriteLine();
+            renderer.Output.AppendLine();
 
-            Console.Write("{0}", new string(' ', 2));
+            renderer.Output.AppendFormat("{0}", new string(' ', 2));
             for (int i = 0; i < 2 * this.FieldSize; i++)
             {
-                Console.Write("-");
+                renderer.Output.Append("-");
             }
 
-            Console.WriteLine();
+            renderer.Output.AppendLine();
 
             // top side numbers
             for (int i = 0; i < this.FieldSize; i++)
@@ -128,11 +130,13 @@
                 Console.Write("{0}|", i);
                 for (int j = 0; j < this.FieldSize; j++)
                 {
-                    Console.Write(" {0}", this.field[i, j]);
+                   renderer.Output.AppendFormat(" {0}", this.field[i, j]);
                 }
 
-                Console.WriteLine();
+                renderer.Output.AppendLine();
             }
+
+            renderer.RenderOutput();
         }
 
         /// <summary>
@@ -168,7 +172,7 @@
              * We pass the detonated cell to the method cellsToExplode and get the
              * cells that have to explode
              */
-            List<Cell> cellsToExplode = this.CellsToExplode(detonatedCell);
+            IEnumerable<Cell> cellsToExplode = this.GetCellsToExplode(detonatedCell);
 
             foreach (var cell in cellsToExplode)
             {
@@ -201,7 +205,7 @@
         /// Gets the number of mines that will be placed on the battlefield
         /// </summary>
         /// <returns>A valid number of mines in the specified range.</returns>
-        public int GetMinesCount()
+        public int GetInitialMinesCount()
         {
             int minesLowerLimit = (int)Math.Floor(MinBombsPercentage * this.FieldSize * this.FieldSize);
             int minesUpperLimit = (int)Math.Floor(MaxBombsPercentage * this.FieldSize * this.FieldSize);
@@ -216,9 +220,9 @@
         /// </summary>
         /// <param name="cellToDetonate">A cell object representing a cell on the battlefield which should be detonated.</param>
         /// <returns>List of cells to explode</returns>
-        private List<Cell> CellsToExplode(Cell cellToDetonate)
+        private IEnumerable<Cell> GetCellsToExplode(Cell cellToDetonate)
         {
-            List<Cell> cellsToExplode;
+            IEnumerable<Cell> cellsToExplode;
 
             switch (this.field[cellToDetonate.Y, cellToDetonate.X] - '0')
             {
@@ -265,7 +269,7 @@
         /// </summary>
         private void InitMines()
         {
-            int minesCount = this.GetMinesCount();
+            int minesCount = this.GetInitialMinesCount();
 
             for (int i = 0; i < minesCount; i++)
             {

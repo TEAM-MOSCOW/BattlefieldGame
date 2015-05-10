@@ -16,9 +16,10 @@
         int FieldSize { get; }
 
         /// <summary>
-        /// Displays the battle field on the console
+        /// Displays the battlefield on the output
         /// </summary>
-        void DisplayField();
+        /// <param name="renderer">The renderer responsible for displaying the field on the output</param>
+        void DisplayField(IRenderer renderer);
 
         /// <summary>
         /// Method that explodes cells from a given detonated cell
@@ -35,7 +36,21 @@
         /// <summary>
         /// Gets the number of mines that will be placed on the battlefield
         /// </summary>
-        /// <returns>A valid number of mines in the specified range.</returns>
-        int GetMinesCount();
+        /// <returns>A valid number of mines to be placed on the battlefield</returns>
+        int GetInitialMinesCount();
+
+        /// <summary>
+        /// Checks if the battlefield contains a cell with certain coordinates.
+        /// </summary>
+        /// <param name="cell">An object containing coordinates</param>
+        /// <returns>True or False</returns>
+        bool IsCellInRange(Cell cell);
+
+        /// <summary>
+        ///  Checks if the Cell is a mine
+        /// </summary>
+        /// <param name="cell">An object containing coordinates</param>
+        /// <returns>True or False</returns>
+        bool IsCellMine(Cell cell);
     }
 }
