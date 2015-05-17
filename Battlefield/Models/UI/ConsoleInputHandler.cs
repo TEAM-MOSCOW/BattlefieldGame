@@ -8,6 +8,8 @@
     /// </summary>
     public class ConsoleInputHandler : IInputHandler
     {
+        // TODO Make this handler return strings and leave the parsing and checking to the engine
+
         /// <summary>
         /// A method which reads input from the console in order to set the battlefield size
         /// </summary>

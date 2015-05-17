@@ -9,6 +9,8 @@
     /// </summary>
     public class ConsoleRenderer : IRenderer
     {
+        // TODO Make this handler return strings and leave the parsing and checking to the engine
+
         /// <summary>
         /// Initializes a new instance of the ConsoleRenderer class
         /// </summary>
