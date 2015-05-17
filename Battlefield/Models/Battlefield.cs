@@ -30,11 +30,11 @@
         /// A constant representing the maximum percentage of cells on the battlefield which should be mines.
         /// </summary>
         private const double MaxBombsPercentage = 0.30;
-        
+
         /// <summary>
         /// A Random responsible for creating mines on random cells on the battlefield.
         /// </summary>
-        private static readonly IRandomNumberGenerator Rand = new RandomNumberGenerator();
+        private readonly IRandomNumberGenerator Rand;
 
         /// <summary>
         /// An instance of a battlefield
@@ -55,11 +55,21 @@
         /// Initializes a new instance of the Battlefield class.
         /// </summary>
         /// <param name="size">The size (width and height) of the battlefield</param>
-        private Battlefield(int size)
+        private Battlefield(int size, IRandomNumberGenerator randomNumberGenerator)
         {
+            this.Rand = randomNumberGenerator;
             this.FieldSize = size;
             this.InitField();
             this.InitMines();
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the Battlefield class.
+        /// </summary>
+        /// <param name="size">The size (width and height) of the battlefield</param>
+        private Battlefield(int size)
+            : this(size, new RandomNumberGenerator())
+        {
         }
 
         /// <summary>
@@ -89,7 +99,7 @@
                 this.fieldSize = value;
             }
         }
-        
+
         /// <summary>
         /// Static method which returns an instance of a battlefield.
         /// </summary>
@@ -130,7 +140,7 @@
                 renderer.Output.AppendFormat("{0}|", i);
                 for (int j = 0; j < this.FieldSize; j++)
                 {
-                   renderer.Output.AppendFormat(" {0}", this.field[i, j]);
+                    renderer.Output.AppendFormat(" {0}", this.field[i, j]);
                 }
 
                 renderer.Output.AppendLine();
@@ -200,7 +210,7 @@
 
             return count;
         }
-        
+
         /// <summary>
         /// Gets the number of mines that will be placed on the battlefield
         /// </summary>
@@ -300,7 +310,7 @@
         {
             if (this.IsCellInRange(cellToDetonate))
             {
-                this.field[cellToDetonate.Y, cellToDetonate.X] = 'X';                
+                this.field[cellToDetonate.Y, cellToDetonate.X] = 'X';
             }
         }
     }
